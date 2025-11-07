@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro al Evento</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Staatliches&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="card form-card">
+    <!-- Encabezado -->
+    <div class="titulo-seccion">
+      <!-- Puedes poner aquí un SVG decorativo si el index usa uno -->
+      <h1>Registro al Evento</h1>
+      <p class="intro">
+        Completa tus datos para asegurar tu lugar en <strong>Reacciona 2025</strong>.
+      </p>
+      <hr class="divider">
+    </div>
+
+    <!-- Formulario -->
+    <form id="registroForm">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" placeholder="Tu nombre completo" required>
+
+      <label for="correo">Correo</label>
+      <input id="correo" name="correo" type="email" placeholder="correo@ejemplo.com" required>
+
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" name="telefono" type="tel" placeholder="Tu telefono" required>
+
+      <label for="rol">¿Cuál es tu rol en la empresa?</label>
+      <input id="rol" name="rol" type="text" placeholder="Ej. Gerente, Analista, etc." required>
+
+      <label for="empresa">Empresa</label>
+      <input id="empresa" name="empresa" type="text" placeholder="Nombre de la empresa" required>
+
+      <button type="submit" id="submitBtn" class="boton-principal">Registrarme</button>
+    </form>
+
+    <hr class="divider">
+
+    <!-- Enlace de regreso -->
+    <a href="index.html" class="boton-principal">Volver al evento</a>
+  </main>
+
+<script>
+document.getElementById("registroForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const formData = {
+    nombre: document.getElementById("nombre").value,
+    correo: document.getElementById("correo").value,
+    telefono: document.getElementById("telefono").value,
+    rol: document.getElementById("rol").value,
+    empresa: document.getElementById("empresa").value
+  };
+
+  try {
+    const response = await fetch("http://localhost:5678/webhook/reacciona-registro", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    });
+
+    // Si el webhook responde con error 400/500, lo registramos, pero igual redirigimos
+    if (!response.ok) {
+      console.error("Error en la respuesta del webhook:", await response.text());
+    }
+  } catch (error) {
+    console.error("Error de conexión con n8n:", error);
+  } finally {
+    // El usuario siempre ve éxito, aunque internamente registremos el error
+    window.location.href = "registro-exitoso.html";
+  }
+});
+</script>
+
+
+
+</body>
+</html>
