@@ -71,7 +71,7 @@ document.getElementById("registroForm").addEventListener("submit", async functio
   };
 
   try {
-    const response = await fetch("http://localhost:5678/webhook/reacciona-registro", {
+    const response = await fetch("https://reacciona.app.n8n.cloud/webhook/reacciona-registro", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)
