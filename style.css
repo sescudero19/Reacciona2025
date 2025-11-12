@@ -19,16 +19,16 @@ body {
   background: #f0f4e8;
   padding: 2.5rem;
   margin: 0;
-  background-image: url('img/Diseño\ sin\ título.png'); /* ruta de tu textura */
-  background-repeat: repeat; /* se repite para cubrir todo el fondo */
-  background-size: auto; /* tamaño original de la textura */
-  background-position: top left; /* posición inicial */
+  background-image: url('img/Diseño\ sin\ título.png');
+  background-repeat: repeat;
+  background-size: auto;
+  background-position: top left;
 }
 
 h1, h2, h3 {
   font-family: var(--fuentePrincipal);
   color: var(--AzulOscuro);
-  
+
 }
 
 h1 { font-size: 4rem; }
@@ -81,6 +81,15 @@ svg {
   gap: 1rem;
   align-items: center;
   max-width: 25rem;
+  margin-bottom: 1.2rem
+}
+.informacion__horario {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem;
+  align-items: left;
+  max-width: 25rem;
+  margin-bottom: 0.7rem
 }
 
 .informacion__texto__p {
@@ -224,7 +233,7 @@ input {
 }
 
 .texto-scroll {
-  max-height: 18rem; 
+  max-height: 18rem;
   overflow-y: auto;
   padding-right: 10px;
 }
@@ -234,12 +243,12 @@ input {
 }
 
 .texto-scroll::-webkit-scrollbar-thumb {
-  background-color: #1e3c8e; 
+  background-color: #1e3c8e;
   border-radius: 3px;
 }
 
 .texto-scroll::-webkit-scrollbar-track {
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
 }
 
 .izquierda {
@@ -255,7 +264,7 @@ input {
   height: 40px;
   pointer-events: none;
   background: linear-gradient(to bottom, rgba(253, 255, 244, 0), var(--Beige));
-  z-index: 5; 
+  z-index: 5;
 }
 
 .logo{
@@ -283,5 +292,84 @@ header{
   display: flex;
 }
 
+.informacion__horario {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem;
+  align-items: center;
+  max-width: 25rem;
+}
 
+.informacion__horario svg {
+  max-width: 4rem; /* tamaño reducido solo para el reloj */
+  max-height: 4rem;
+}
+/* --- ICONOS + BLOQUES DE INFORMACIÓN (alineado limpio) --- */
 
+/* Hacemos que cada bloque tenga 2 columnas: icono (auto) + texto (1fr) */
+.informacion__fecha,
+.informacion__ubicacion,
+.informacion__horario {
+  display: grid;
+  grid-template-columns: auto 1fr; /* icono + texto */
+  gap: 1.2rem;
+  align-items: center;             /* centra verticalmente icono y texto */
+  max-width: 25rem;
+}
+
+/* Tamaño específico para los svg dentro de estos bloques (consistente) */
+.informacion__fecha svg,
+.informacion__ubicacion svg,
+.informacion__horario svg {
+  width: 4rem;   /* tamaño fijo y consistente */
+  height: 4rem;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Texto dentro del bloque: lo centramos verticalmente usando flex */
+.informacion__texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centra verticalmente si el texto ocupa más de una línea */
+}
+
+/* Ajustes finos para párrafos */
+.informacion__texto__p {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.informacion__texto__p--abajo {
+  margin-top: 0.2rem;
+  font-size: 1.4rem;
+  color: #374d89;
+  line-height: 1.25;
+}
+
+/* Si quieres que el icono del horario sea un poco más pequeño que los otros: */
+.informacion__horario svg {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+/* Media query: reducir tamaño de iconos en pantallas pequeñas */
+@media (max-width: 765px) {
+  .informacion__fecha svg,
+  .informacion__ubicacion svg,
+  .informacion__horario svg {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  .informacion__fecha,
+  .informacion__ubicacion,
+  .informacion__horario {
+    max-width: 100%;
+  }
+}
+
+.informacion__horario .informacion__texto {
+  margin-left: 0.5rem; /* mueve solo el texto un poco a la izquierda */
+}
